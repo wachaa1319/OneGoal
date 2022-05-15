@@ -1,4 +1,13 @@
-import { Box, Button, Heading } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  HStack,
+  Icon,
+  IconButton,
+} from "native-base";
 import { useContext } from "react";
 import { StyleSheet } from "react-native";
 
@@ -12,15 +21,39 @@ import { RootStackScreenProps } from "../types";
 export default function GoalNowScreen({
   navigation,
 }: RootStackScreenProps<"GoalNow">) {
-  const { goalNow } = useContext(GoalContext);
+  // const { goalNow } = useContext(GoalContext);
+  const goalNow = {
+    title: "Learn to code",
+    description: "Learn to code adadad",
+    dueDate: new Date(),
+  };
+
   return (
     <Box style={styles.container}>
       <SafeTop />
-      <Heading size="2xl">One Goal</Heading>
+      <HStack justifyContent={"space-between"}>
+        <Heading size="2xl">One Goal</Heading>
+        {/* // TODO menu settings, show finished goals, edit goal, share goals to
+        image. */}
+        <IconButton
+          icon={<Icon as={Ionicons} name="menu" />}
+          onPress={() => navigation.goBack()}
+        />
+      </HStack>
 
-      <Box style={styles.centerContainer}>
+      <Center>
         {goalNow.title ? (
-          <Text>goal</Text>
+          <Box>
+            <Heading>{goalNow.title}</Heading>
+            <Heading>{goalNow.description}</Heading>
+            Due
+            <Heading>{goalNow.dueDate.getDate()}</Heading>
+            <Heading>Problems</Heading>
+            // TODO show oldest 4<Heading>Todos</Heading>
+            // TODO show newest 4<Heading>Logs</Heading>
+            // TODO List Logs, newer = top, add log // TODO Finished Button,
+            save
+          </Box>
         ) : (
           <Box>
             <Heading>Add a main goal</Heading>
@@ -34,7 +67,7 @@ export default function GoalNowScreen({
             </Button>
           </Box>
         )}
-      </Box>
+      </Center>
     </Box>
   );
 }
